@@ -48,7 +48,7 @@ const questions = () => {
     {
       type: 'input',
       name: 'description',
-      message: 'Add a description of what this project is for',
+      message: 'Add a description of this project',
       validate: descriptionInput => {
         if (descriptionInput) {
           return true;
@@ -93,7 +93,7 @@ const questions = () => {
     {
       type: 'confirm',
       name: 'confirmScreenshot',
-      message: 'Would you like to include a screenshot',
+      message: 'Would you like to include a screenshot?',
       default: false
     },
     {
@@ -115,7 +115,7 @@ const questions = () => {
     {
       type: 'list',
       name: 'license',
-      message: 'What license applies to this project',
+      message: 'What license applies to this project?',
       choices: ['ISC', 'MIT', 'GNUGPLv3', 'GNUGPLv2', 'Apache2', 'Unlicense']
     },
     {
@@ -131,7 +131,7 @@ const questions = () => {
     {
       type: 'input',
       name: 'contributing',
-      message: 'How should others contribute to this project (can be left blank)'
+      message: 'How should others contribute to this project? (can be left blank)'
     },
     {
       type: 'input',
@@ -152,7 +152,7 @@ const writeToFile = content => {
 
       resolve({
         ok: true,
-        message: 'File created!'
+        message: 'File created'
       });
     });
   });
@@ -180,4 +180,3 @@ function init() {
 
 // Function call to initialize app
 init();
-
