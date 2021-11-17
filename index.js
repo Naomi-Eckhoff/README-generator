@@ -164,9 +164,20 @@ const readmeText = answersArray => {
 //function writeToFile(fileName, data) { }
 
 const writeToFile = content => {
+  return new Promise((resolve, reject) => {
+    fs.writeFile('./dist/README.md', content, err => {
+      if (err) {
+        reject(err);
+        return;
+      }
 
-}
-
+      resolve({
+        ok: true,
+        message: 'File created!'
+      });
+    });
+  });
+};
 // TODO: Create a function to initialize app
 //function init() { }
 
@@ -174,5 +185,13 @@ const writeToFile = content => {
 //init();
 questions()
   .then(readmeText)
-  .then(writeToFile);
+  .then(content => {
+    return writeToFile(content);
+  })
+  .then(writeResponse => {
+    console.log(writeResponse);
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
