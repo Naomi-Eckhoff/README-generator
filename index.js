@@ -4,8 +4,6 @@ const fs = require('fs');
 const generateMarkdown = require('./utils/generateMarkdown.js');
 
 // TODO: Create an array of questions for user input
-
-
 const questions = () => {
   return inquirer.prompt([
     {
@@ -161,15 +159,17 @@ const writeToFile = content => {
 };
 
 // TODO: Create a function to initialize app
-//function init() { }
 function init() {
   questions()
+    //answers bounced to ./utils/generateMarkdown.js for processing
     .then(answersArray => {
       return generateMarkdown(answersArray);
     })
+    //markdown bounced back to be written
     .then(content => {
       return writeToFile(content);
     })
+    //file dropped into dist as README.md
     .then(writeResponse => {
       console.log(writeResponse);
     })
@@ -179,6 +179,5 @@ function init() {
 };
 
 // Function call to initialize app
-//init();
 init();
 

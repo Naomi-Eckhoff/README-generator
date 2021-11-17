@@ -52,6 +52,7 @@ const renderLicenseSection = license => {
 
 
 // TODO: Create a function to generate markdown for README
+//used ternary operators instead of creating new functions
 module.exports = answersArray => {
   return `
   # ${answersArray.title}
