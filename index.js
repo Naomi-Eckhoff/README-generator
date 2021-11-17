@@ -9,6 +9,32 @@ const questions = () => {
   return inquirer.prompt([
     {
       type: 'input',
+      name: 'gitUserName',
+      message: 'What is your git username?',
+      validate: gitUserNameInput => {
+        if (gitUserNameInput) {
+          return true;
+        } else {
+          console.log('Please enter your git username');
+          return false;
+        }
+      }
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: 'What is your email?',
+      validate: emailInput => {
+        if (emailInput) {
+          return true;
+        } else {
+          console.log('Please enter your email');
+          return false;
+        }
+      }
+    },
+    {
+      type: 'input',
       name: 'title',
       message: 'What is the title of this project?',
       validate: titleInput => {
@@ -23,7 +49,7 @@ const questions = () => {
     {
       type: 'input',
       name: 'description',
-      message: 'Add a description of what this project is for.',
+      message: 'Add a description of what this project is for',
       validate: descriptionInput => {
         if (descriptionInput) {
           return true;
@@ -88,14 +114,15 @@ const questions = () => {
       message: 'Name any tutorials you used (can be left blank)'
     },
     {
-      type: 'input',
+      type: 'list',
       name: 'license',
-      message: 'What license applies to this project (can be left blank)'
+      message: 'What license applies to this project',
+      choices: ['ISC', 'MIT', 'GNUGPLv3', 'GNUGPLv2', 'Apache2', 'Unlicense']
     },
     {
       type: 'input',
       name: 'badges',
-      message: 'Name any badges you wan to use (can be left blank)'
+      message: 'Name any badges you want to use (can be left blank)'
     },
     {
       type: 'input',
@@ -111,53 +138,71 @@ const questions = () => {
       type: 'input',
       name: 'tests',
       message: 'Tests to be used with this application (can be left blank)'
-    },
+    }
   ]);
+};
+
+const licenseBadge = license => {
+  if (!license) {
+    return '';
+  }
+
+  return `![license badge](https://img.shields.io/badge/license-${license}-blue)`;
 };
 
 const readmeText = answersArray => {
   return `
-  #${answersArray.title}
-
-  ##Description
+  # ${answersArray.title}
+  ${licenseBadge(answersArray.license)}
+  ## Description
 
   ${answersArray.description}
 
-  ${answersArray.confirmTOC ? `##Table of Contents` : ``}
+  ${answersArray.confirmTOC ? `## Table of Contents
 
-  ##Installation
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [Credits](#credits)
+  * [License](#license)
+  ` : ``}
+
+  ## Installation
 
   ${answersArray.install}
 
-  ##Usage
+  ## Usage
 
   ${answersArray.usage}
-  ${answersArray.confirmScreenshot ? `![alt text](./assets/images/screenshot.jpeg)` : ''}
+  ${answersArray.confirmScreenshot ? `![application screenshot](./assets/images/screenshot.jpeg)` : ''}
 
   ${answersArray.collab || answersArray.thirdParty || answersArray.tutorials ? `##Credits` : ``}
   ${answersArray.collab}
   ${answersArray.thirdParty}
   ${answersArray.tutorials}
 
-  ##License
+  ## License
 
-  ${answersArray.license}
+  This application is covered under the ${answersArray.license} license.
 
-  ${answersArray.badges ? `##Badges` : ``}
+  ${answersArray.badges ? `## Badges` : ``}
 
   ${answersArray.badges}
 
-  ${answersArray.features ? `##Features` : ``}
+  ${answersArray.features ? `## Features` : ``}
 
   ${answersArray.features}
 
-  ${answersArray.contributing ? `##Contributing` : ``}
+  ${answersArray.contributing ? `## Contributing` : ``}
 
   ${answersArray.contributing}
 
-  ${answersArray.tests ? `##Tests` : ``}
+  ${answersArray.tests ? `## Tests` : ``}
 
   ${answersArray.tests}
+
+  ## Questions
+
+  Questions should be directed to github.com/${answersArray.gitUserName} or emailed to ${answersArray.email}
   `;
 };
 // TODO: Create a function to write README file
