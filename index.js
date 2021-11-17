@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
+const generateMarkdown = require('./utils/generateMarkdown.js');
 
 // TODO: Create an array of questions for user input
 
@@ -142,72 +143,7 @@ const questions = () => {
   ]);
 };
 
-const licenseBadge = license => {
-  if (!license) {
-    return '';
-  }
-
-  return `![license badge](https://img.shields.io/badge/license-${license}-blue)`;
-};
-
-const readmeText = answersArray => {
-  return `
-  # ${answersArray.title}
-  ${licenseBadge(answersArray.license)}
-  ## Description
-
-  ${answersArray.description}
-
-  ${answersArray.confirmTOC ? `## Table of Contents
-
-  * [Installation](#installation)
-  * [Usage](#usage)
-  * [Credits](#credits)
-  * [License](#license)
-  ` : ``}
-
-  ## Installation
-
-  ${answersArray.install}
-
-  ## Usage
-
-  ${answersArray.usage}
-  ${answersArray.confirmScreenshot ? `![application screenshot](./assets/images/screenshot.jpeg)` : ''}
-
-  ${answersArray.collab || answersArray.thirdParty || answersArray.tutorials ? `##Credits` : ``}
-  ${answersArray.collab}
-  ${answersArray.thirdParty}
-  ${answersArray.tutorials}
-
-  ## License
-
-  This application is covered under the ${answersArray.license} license.
-
-  ${answersArray.badges ? `## Badges` : ``}
-
-  ${answersArray.badges}
-
-  ${answersArray.features ? `## Features` : ``}
-
-  ${answersArray.features}
-
-  ${answersArray.contributing ? `## Contributing` : ``}
-
-  ${answersArray.contributing}
-
-  ${answersArray.tests ? `## Tests` : ``}
-
-  ${answersArray.tests}
-
-  ## Questions
-
-  Questions should be directed to github.com/${answersArray.gitUserName} or emailed to ${answersArray.email}
-  `;
-};
 // TODO: Create a function to write README file
-//function writeToFile(fileName, data) { }
-
 const writeToFile = content => {
   return new Promise((resolve, reject) => {
     fs.writeFile('./dist/README.md', content, err => {
@@ -223,20 +159,26 @@ const writeToFile = content => {
     });
   });
 };
+
 // TODO: Create a function to initialize app
 //function init() { }
+function init() {
+  questions()
+    .then(answersArray => {
+      return generateMarkdown(answersArray);
+    })
+    .then(content => {
+      return writeToFile(content);
+    })
+    .then(writeResponse => {
+      console.log(writeResponse);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
 
 // Function call to initialize app
 //init();
-questions()
-  .then(readmeText)
-  .then(content => {
-    return writeToFile(content);
-  })
-  .then(writeResponse => {
-    console.log(writeResponse);
-  })
-  .catch(err => {
-    console.log(err);
-  });
+init();
 
