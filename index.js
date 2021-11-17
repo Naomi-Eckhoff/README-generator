@@ -2,6 +2,8 @@
 const inquirer = require('inquirer');
 
 // TODO: Create an array of questions for user input
+
+
 const questions = () => {
   return inquirer.prompt([
     {
@@ -112,11 +114,59 @@ const questions = () => {
   ]);
 };
 
+const readmeText = answersArray => {
+  return `
+  #${answersArray.title}
+
+  ##Description
+
+  ${answersArray.description}
+
+  ${answersArray.confirmTOC ? `##Table of Contents` : ``}
+
+  ##Installation
+
+  ${answersArray.install}
+
+  ##Usage
+
+  ${answersArray.usage}
+  ${answersArray.confirmScreenshot ? `![alt text](./assets/images/screenshot.jpeg)` : ''}
+
+  ${answersArray.collab || answersArray.thirdParty || answersArray.tutorials ? `##Credits` : ``}
+  ${answersArray.collab}
+  ${answersArray.thirdParty}
+  ${answersArray.tutorials}
+
+  ##License
+
+  ${answersArray.license}
+
+  ${answersArray.badges ? `##Badges` : ``}
+
+  ${answersArray.badges}
+
+  ${answersArray.features ? `##Features` : ``}
+
+  ${answersArray.features}
+
+  ${answersArray.contributing ? `##Contributing` : ``}
+
+  ${answersArray.contributing}
+
+  ${answersArray.tests ? `##Tests` : ``}
+
+  ${answersArray.tests}
+  `;
+};
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) { }
+//function writeToFile(fileName, data) { }
 
 // TODO: Create a function to initialize app
-function init() { }
+//function init() { }
 
 // Function call to initialize app
-init();
+//init();
+questions()
+  .then(readmeText);
+
