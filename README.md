@@ -11,7 +11,6 @@
 
   * [Installation](#installation)
   * [Usage](#usage)
-  * [Credits](#credits)
   * [License](#license)
   
 
@@ -22,7 +21,9 @@
   ## Usage
 
   After the installation run node index.js from the command line and answer the prompts.
-  
+
+  https://user-images.githubusercontent.com/88948869/142324052-96881bfe-9479-46c4-a03c-cd6c964ebbcb.mp4
+
 
   
   
