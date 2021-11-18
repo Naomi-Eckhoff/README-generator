@@ -22,10 +22,9 @@
 
   After the installation run node index.js from the command line and answer the prompts.
 
-  https://user-images.githubusercontent.com/88948869/142324052-96881bfe-9479-46c4-a03c-cd6c964ebbcb.mp4
+  https://user-images.githubusercontent.com/88948869/142327325-9edb506f-c7ab-4354-9cba-95fdc8bcbaaa.mp4
 
-
-  
+ 
   
   
   
