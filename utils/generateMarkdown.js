@@ -107,7 +107,7 @@ module.exports = answersArray => {
 
   ## Questions
 
-  Questions should be directed to [github.com/${answersArray.gitUserName}](github.com/${answersArray.gitUserName}) or emailed to ${answersArray.email}
+  Questions should be directed to [https://github.com/${answersArray.gitUserName}](https://github.com/${answersArray.gitUserName}) or emailed to ${answersArray.email}
   `;
 };
 
