@@ -143,6 +143,11 @@ const questions = () => {
 
 // TODO: Create a function to write README file
 const writeToFile = content => {
+  //adds dist folder for readme
+  if (!fs.existsSync('./dist')) {
+    fs.mkdirSync('./dist');
+  }
+
   return new Promise((resolve, reject) => {
     fs.writeFile('./dist/README.md', content, err => {
       if (err) {
